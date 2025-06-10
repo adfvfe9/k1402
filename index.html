@@ -202,6 +202,7 @@
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="info-card">
                         <h4 class="font-semibold text-lg text-[#4ECDC4] mb-2">김희성 학생</h4>
+                        <img src="src/his.jpg" alt="김희성 학생 인터뷰 이미지" class="w-full h-56 object-cover rounded-md mb-4 shadow-md">
                         <ul class="list-disc list-inside space-y-1 text-sm">
                             <li>만족스러운 답변까지 평균 <span class="highlight-text">약 10분</span> 소요.</li>
                             <li>가장 오래 걸린 경우: 역사 수행평가 주제 구성 시 <span class="highlight-text">약 20분 이상</span> 소요, 결과는 매우 만족.</li>
@@ -211,6 +212,7 @@
                     </div>
                     <div class="info-card">
                         <h4 class="font-semibold text-lg text-[#4ECDC4] mb-2">박주혁 학생</h4>
+                        <img src="src/ju.jpg" alt="박주혁 학생 인터뷰 이미지" class="w-full h-56 object-cover rounded-md mb-4 shadow-md">
                         <ul class="list-disc list-inside space-y-1 text-sm">
                             <li>초보자 조언: "프롬프트를 <span class="highlight-text">최대한 상세하고 구체적으로</span> 작성하는 것이 중요!"</li>
                             <li>사례: '성공적인 직업생활' 수업 중 로고 제작 요청 시, 상세 설명(스타일, 컬러, 용도 등) 포함 → 모던하고 깔끔한 결과물에 만족.</li>
@@ -330,7 +332,6 @@
 
 
         // Chart Data
-        // 설문 1: AI에게 질문할 때, 원하는 답변을 명확하고 효과적으로 얻기 위해 프롬프트(명령어 또는 질문)의 구체성이 얼마나 중요하다고 생각하시나요?
         const survey1Data = {
             labels: ['보통이다', '중요하다', '매우 중요하다'],
             datasets: [{
@@ -343,7 +344,6 @@
             }]
         };
 
-        // 설문 2: AI로부터 만족스럽지 못한 답변을 받았을 때, 더 나은 답변을 얻기 위해 프롬프트를 어떻게 수정하거나 개선하는 편인가요?
         const survey2Data = {
             labels: [
                 '질문의 단어나 표현을 조금 바꿔서 다시 질문한다.',
@@ -363,7 +363,6 @@
             }]
         };
         
-        // 설문 3: AI가 답변할 수 있는 정보의 범위나 능력에 한계가 있다는 점을 고려하여 프롬포트를 작성하는 것이 효과적인 답변을 얻는 데 얼마나 도움이 된다고 생각하시나요?
         const survey3Data = {
             labels: ['보통이다', '도움이 된다', '매우 도움이 된다'], // 보고서 내용에 맞춰 "조금 도움이 된다" -> "도움이 된다"로 수정
             datasets: [{
@@ -434,7 +433,13 @@
                             title: { display: false },
                             legend: { display: false },
                             tooltip: {
+                                mode: 'y',
+                                intersect: false,
                                 callbacks: {
+                                    title: function(tooltipItems) {
+                                        const dataIndex = tooltipItems[0].dataIndex;
+                                        return survey2Data.labels[dataIndex];
+                                    },
                                     label: function(context) {
                                         let label = context.dataset.label || '';
                                         if (label) { label += ': '; }
