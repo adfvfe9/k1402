@@ -21,47 +21,46 @@
             color: #263238; /* Dark Text */
         }
         .chart-container {
-            position: relative; /* Required for Chart.js responsiveness */
+            position: relative;
             margin-left: auto;
             margin-right: auto;
         }
         .info-card {
-            background-color: #FFFFFF; /* Light Background (Card Background) */
-            border-radius: 0.75rem; /* rounded-xl */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow-lg */
-            padding: 1.5rem; /* p-6 */
-            margin-bottom: 1.5rem; /* mb-6 */
-            border: 1px solid #E0F2FE; /* Supporting Light Blue for subtle border */
+            background-color: #FFFFFF;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #E0F2FE;
         }
         .section-title {
-            font-size: 1.875rem; /* text-3xl */
-            font-weight: 700; /* font-bold */
-            color: #2A62B6; /* Primary Blue */
-            margin-bottom: 1.5rem; /* mb-6 */
-            padding-bottom: 0.75rem; /* pb-3 */
-            border-bottom: 3px solid #4ECDC4; /* Secondary Teal */
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #2A62B6;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid #4ECDC4;
             text-align: center;
         }
         .subsection-title {
-            font-size: 1.25rem; /* text-xl */
-            font-weight: 600; /* font-semibold */
-            color: #2A62B6; /* Primary Blue */
-            margin-bottom: 0.75rem; /* mb-3 */
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2A62B6;
+            margin-bottom: 0.75rem;
         }
         .highlight-text {
-            color: #2A62B6; /* Primary Blue */
+            color: #2A62B6;
             font-weight: 600;
         }
         .accent-text {
-            color: #4ECDC4; /* Secondary Teal */
+            color: #4ECDC4;
             font-weight: 600;
         }
-        /* Icon styling using Unicode characters */
         .icon::before {
             display: inline-block;
-            margin-right: 0.5rem; /* mr-2 */
-            font-size: 1.25rem; /* text-xl */
-            color: #4ECDC4; /* Secondary Teal */
+            margin-right: 0.5rem;
+            font-size: 1.25rem;
+            color: #4ECDC4;
         }
         .icon-purpose::before { content: "🎯"; }
         .icon-literacy::before { content: "💡"; }
@@ -76,41 +75,104 @@
         .icon-reference::before { content: "📚"; }
         .icon-team::before { content: "🧑‍🤝‍🧑"; }
         
-        /* Custom list style for key findings */
         .finding-list li {
             padding-left: 1.5em;
             position: relative;
         }
         .finding-list li::before {
             content: "✔";
-            color: #4ECDC4; /* Secondary Teal */
+            color: #4ECDC4;
             position: absolute;
             left: 0;
             font-weight: bold;
         }
 
-        /* Scroll Animation Styles */
+        /* Initial Page Load & Scroll Intro Animation */
+        header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            transition: min-height 0.9s ease-in-out, padding 0.9s ease-in-out;
+            position: relative;
+        }
+        
+        body.scrolled header {
+            min-height: auto;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        main, footer {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        
+        body.scrolled main, body.scrolled footer {
+            opacity: 1;
+        }
+        
+        /* Element-specific fade-in on scroll */
         .scroll-animate {
             opacity: 0;
             transform: translateY(40px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+            transition: opacity 0.9s ease-out, transform 0.9s ease-out;
         }
+
         .scroll-animate.is-visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Scroll Down Arrow */
+        .scroll-down-arrow {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 28px;
+            border-left: 3px solid #2A62B6;
+            border-bottom: 3px solid #2A62B6;
+            transform: translateX(-50%) rotate(-45deg);
+            animation: bounce 2.2s infinite;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        body.scrolled .scroll-down-arrow {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) rotate(-45deg) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) rotate(-45deg) translateY(-20px);
+            }
+            60% {
+                transform: translateX(-50%) rotate(-45deg) translateY(-10px);
+            }
         }
     </style>
 </head>
 <body class="antialiased">
     <div class="container mx-auto p-4 md:p-8 max-w-6xl">
-        <header class="text-center py-8 mb-8 scroll-animate">
-            <h1 class="text-3xl md:text-4xl font-extrabold text-[#2A62B6] leading-tight">AI에게 프롬프트를 어떻게 입력해야 효과적으로 답변을 얻을 수 있을까?</h1>
-            <p class="text-lg md:text-xl text-[#4ECDC4] mt-3 font-medium">미림마이스터고등학교 1학년 4반 2조 학생들의 AI 활용법 탐구</p>
-            <p class="text-sm text-gray-500 mt-2">작성일: 2025년 5월 29일</p>
-            <div class="mt-4 info-card max-w-md mx-auto">
-                <h3 class="subsection-title icon icon-team text-center">조사팀: 1학년 4반 2조</h3>
-                <p class="text-sm text-gray-700 text-center">공은성, 권초현, 이보미, 홍성재, 황나연</p>
+        <header>
+            <div class="header-content">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-[#2A62B6] leading-tight">AI에게 프롬프트를 어떻게 입력해야 효과적으로 답변을 얻을 수 있을까?</h1>
+                <p class="text-lg md:text-xl text-[#4ECDC4] mt-3 font-medium">미림마이스터고등학교 1학년 4반 2조 학생들의 AI 활용법 탐구</p>
+                <p class="text-sm text-gray-500 mt-2">작성일: 2025년 5월 29일</p>
+                <div class="mt-4 info-card max-w-md mx-auto">
+                    <h3 class="subsection-title icon icon-team text-center">조사팀: 1학년 4반 2조</h3>
+                    <p class="text-sm text-gray-700 text-center">공은성, 권초현, 이보미, 홍성재, 황나연</p>
+                </div>
             </div>
+            <div class="scroll-down-arrow"></div>
         </header>
 
         <main>
@@ -386,21 +448,25 @@
             }
 
             // Scroll Animation Logic
+            const handleFirstScroll = () => {
+                if (window.scrollY > 10) { 
+                    document.body.classList.add('scrolled');
+                    window.removeEventListener('scroll', handleFirstScroll);
+                }
+            };
+            window.addEventListener('scroll', handleFirstScroll);
+
             const animatedElements = document.querySelectorAll('.scroll-animate');
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                        } else {
-                            entry.target.classList.remove('is-visible');
-                        }
-                    });
-                }, { threshold: 0.1 });
-                animatedElements.forEach(el => observer.observe(el));
-            } else {
-                animatedElements.forEach(el => el.classList.add('is-visible'));
-            }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    } else {
+                        entry.target.classList.remove('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => observer.observe(el));
         });
     </script>
 </body>
